@@ -1,0 +1,11 @@
+CompileFlags:
+  CompilationDatabase: .
+
+Diagnostics:
+  UnusedIncludes: Strict
+  MissingIncludes: Strict
+
+InlayHints:
+  Enabled: Yes
+  ParameterNames: Yes
+  DeducedTypes: Yes

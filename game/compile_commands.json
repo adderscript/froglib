@@ -1,0 +1,38 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-std=c++17",
+      "-Wall",
+      "-Wextra",
+      "-O2",
+      "-I../include",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "build/main.o",
+      "src/main.cpp"
+    ],
+    "directory": "/home/adderscript/Dropbox/Alasdair Gray/Programming/C-C++/Raylib/Froglib/game",
+    "file": "/home/adderscript/Dropbox/Alasdair Gray/Programming/C-C++/Raylib/Froglib/game/src/main.cpp",
+    "output": "/home/adderscript/Dropbox/Alasdair Gray/Programming/C-C++/Raylib/Froglib/game/build/main.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-std=c++17",
+      "-Wall",
+      "-Wextra",
+      "-O2",
+      "-I../include",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "build/Game1.o",
+      "src/Game1.cpp"
+    ],
+    "directory": "/home/adderscript/Dropbox/Alasdair Gray/Programming/C-C++/Raylib/Froglib/game",
+    "file": "/home/adderscript/Dropbox/Alasdair Gray/Programming/C-C++/Raylib/Froglib/game/src/Game1.cpp",
+    "output": "/home/adderscript/Dropbox/Alasdair Gray/Programming/C-C++/Raylib/Froglib/game/build/Game1.o"
+  }
+]
