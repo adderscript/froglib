@@ -1,6 +1,7 @@
 package main
 
 import (
+	"froglib/assets"
 	. "froglib/examples/game/entities"
 
 	"github.com/hajimehoshi/ebiten/v2"
@@ -11,6 +12,8 @@ type Game struct {
 }
 
 func NewGame() *Game {
+	assets.CacheImage("examples/game/assets/player.png", "player")
+
 	game := Game{
 		player: NewPlayer(100.0, 100.0),
 	}

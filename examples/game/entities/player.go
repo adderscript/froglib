@@ -1,14 +1,12 @@
 package entities
 
 import (
-	"log"
-
+	"froglib/assets"
 	. "froglib/components"
 	"froglib/input"
 	. "froglib/math"
 
 	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 )
 
 type Player struct {
@@ -21,17 +19,12 @@ type Player struct {
 }
 
 func NewPlayer(x, y float64) *Player {
-	image, _, err := ebitenutil.NewImageFromFile("examples/game/assets/player.png")
-	if err != nil {
-		log.Fatal(err)
-	}
-
 	player := Player{
 		Transform: NewTransform(NewVec2(0.0, 0.0), 2.0, 0.0),
 		Rigidbody: NewRigidbody(1.0, 0.5, false),
-		sprite:    NewSprite(image),
+		sprite:    NewSprite(assets.GetImage("player")),
 
-		speed:  2.5,
+		speed:  100.0,
 		origin: NewVec2(0.5, 0.5),
 	}
 
@@ -39,9 +32,16 @@ func NewPlayer(x, y float64) *Player {
 }
 
 func (p *Player) Update() {
-	// get input
-	dir := input.GetVector(ebiten.KeyA, ebiten.KeyD, ebiten.KeyW, ebiten.KeyS)
-	p.ApplyForce(dir.Scale(p.speed))
+	// handle movement
+	if input.IsKeyPressed(ebiten.KeyD) {
+		p.ApplyImpulse(NewVec2(p.speed, 0.0))
+	} else if input.IsKeyPressed(ebiten.KeyA) {
+		p.ApplyImpulse(NewVec2(-p.speed, 0.0))
+	} else if input.IsKeyPressed(ebiten.KeyS) {
+		p.ApplyImpulse(NewVec2(0.0, p.speed))
+	} else if input.IsKeyPressed(ebiten.KeyW) {
+		p.ApplyImpulse(NewVec2(0.0, -p.speed))
+	}
 
 	p.Integrate(&p.Position)
 }
