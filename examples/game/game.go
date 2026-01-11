@@ -12,7 +12,8 @@ type Game struct {
 }
 
 func NewGame() *Game {
-	assets.CacheImage("examples/game/assets/player.png", "player")
+	assets.CacheImage("examples/game/assets/playerIdle.png", "playerIdle")
+	assets.CacheImage("examples/game/assets/playerRun.png", "playerRun")
 
 	game := Game{
 		player: NewPlayer(100.0, 100.0),

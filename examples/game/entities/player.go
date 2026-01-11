@@ -12,20 +12,34 @@ import (
 type Player struct {
 	*Transform
 	*Rigidbody
-	sprite *Sprite
 
-	speed  float64
-	origin Vec2
+	speed float64
+
+	sprite   *AnimatedSprite
+	origin   Vec2
+	idleAnim *Animation
+	runAnim  *Animation
 }
 
 func NewPlayer(x, y float64) *Player {
 	player := Player{
 		Transform: NewTransform(NewVec2(0.0, 0.0), 2.0, 0.0),
 		Rigidbody: NewRigidbody(1.0, 0.5, false),
-		sprite:    NewSprite(assets.GetImage("player")),
 
-		speed:  1.0,
+		speed: 2.0,
+
+		sprite: NewAnimatedSprite(),
 		origin: NewVec2(0.5, 0.5),
+		idleAnim: NewAnimation(
+			SliceSpriteSheet(assets.GetImage("playerIdle"), 2),
+			0.3,
+			true,
+		),
+		runAnim: NewAnimation(
+			SliceSpriteSheet(assets.GetImage("playerRun"), 2),
+			0.2,
+			true,
+		),
 	}
 
 	return &player
@@ -36,7 +50,15 @@ func (p *Player) Update() {
 	dir := input.GetVector(ebiten.KeyA, ebiten.KeyD, ebiten.KeyW, ebiten.KeyS)
 	p.ApplyForce(dir.Scale(p.speed))
 
+	// animate
+	if dir.Length() != 0.0 {
+		p.sprite.Play(p.runAnim)
+	} else {
+		p.sprite.Play(p.idleAnim)
+	}
+
 	p.Integrate(&p.Position)
+	p.sprite.Update()
 }
 
 func (p *Player) Draw(screen *ebiten.Image) {

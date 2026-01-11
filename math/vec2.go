@@ -1,5 +1,7 @@
 package math
 
+import "math"
+
 type Vec2 struct {
 	X, Y float64
 }
@@ -36,4 +38,8 @@ func (v Vec2) Scale(scalar float64) Vec2 {
 		v.X*scalar,
 		v.Y*scalar,
 	)
+}
+
+func (v Vec2) Length() float64 {
+	return math.Hypot(v.X, v.Y)
 }
