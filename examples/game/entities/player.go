@@ -24,7 +24,7 @@ func NewPlayer(x, y float64) *Player {
 		Rigidbody: NewRigidbody(1.0, 0.5, false),
 		sprite:    NewSprite(assets.GetImage("player")),
 
-		speed:  100.0,
+		speed:  1.0,
 		origin: NewVec2(0.5, 0.5),
 	}
 
@@ -33,15 +33,8 @@ func NewPlayer(x, y float64) *Player {
 
 func (p *Player) Update() {
 	// handle movement
-	if input.IsKeyPressed(ebiten.KeyD) {
-		p.ApplyImpulse(NewVec2(p.speed, 0.0))
-	} else if input.IsKeyPressed(ebiten.KeyA) {
-		p.ApplyImpulse(NewVec2(-p.speed, 0.0))
-	} else if input.IsKeyPressed(ebiten.KeyS) {
-		p.ApplyImpulse(NewVec2(0.0, p.speed))
-	} else if input.IsKeyPressed(ebiten.KeyW) {
-		p.ApplyImpulse(NewVec2(0.0, -p.speed))
-	}
+	dir := input.GetVector(ebiten.KeyA, ebiten.KeyD, ebiten.KeyW, ebiten.KeyS)
+	p.ApplyForce(dir.Scale(p.speed))
 
 	p.Integrate(&p.Position)
 }
